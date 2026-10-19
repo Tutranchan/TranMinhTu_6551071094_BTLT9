@@ -1,0 +1,1 @@
+namespace KeHoachDaNgoai.Models; public class ChuyenDi { public int MaChuyen {get;set;} public string TenChuyen {get;set;}=""; public string DiaDiem {get;set;}=""; public DateTime NgayDi {get;set;} public int SoNguoi {get;set;} public decimal NganSach {get;set;} public string PhuongTien {get;set;}=""; public bool DaHoanThanh {get;set;} public string? GhiChu {get;set;} }

@@ -1,0 +1,10 @@
+IF DB_ID(N'QL_DatTour') IS NULL CREATE DATABASE QL_DatTour;
+GO
+USE QL_DatTour;
+GO
+IF OBJECT_ID('dbo.DatTour','U') IS NOT NULL DROP TABLE DatTour; IF OBJECT_ID('dbo.KhachHang','U') IS NOT NULL DROP TABLE KhachHang; IF OBJECT_ID('dbo.Tour','U') IS NOT NULL DROP TABLE Tour;
+CREATE TABLE Tour(MaTour INT IDENTITY PRIMARY KEY,TenTour NVARCHAR(100) NOT NULL,DiemDen NVARCHAR(50) NOT NULL,NgoaiTe CHAR(3) NOT NULL,GiaNgoaiTe DECIMAL(18,2) NOT NULL CHECK(GiaNgoaiTe>=0),NgayKhoiHanh DATE NOT NULL,SoChoToiDa INT NOT NULL CHECK(SoChoToiDa>0));
+CREATE TABLE KhachHang(MaKH INT IDENTITY PRIMARY KEY,HoTen NVARCHAR(100) NOT NULL,SoDienThoai VARCHAR(15) NULL,Email NVARCHAR(100) NULL);
+CREATE TABLE DatTour(MaDat INT IDENTITY PRIMARY KEY,MaKH INT NOT NULL REFERENCES KhachHang(MaKH),MaTour INT NOT NULL REFERENCES Tour(MaTour),SoNguoi INT NOT NULL CHECK(SoNguoi>0),NgayDat DATETIME NOT NULL DEFAULT GETDATE(),TyGia DECIMAL(18,4) NOT NULL,TongTienVND DECIMAL(18,0) NOT NULL);
+INSERT Tour(TenTour,DiemDen,NgoaiTe,GiaNgoaiTe,NgayKhoiHanh,SoChoToiDa) VALUES(N'Bangkok – Pattaya',N'Thái Lan','THB',8500,DATEADD(day,20,GETDATE()),30),(N'Seoul – Nami',N'Hàn Quốc','KRW',450000,DATEADD(day,30,GETDATE()),25),(N'Tokyo – Phú Sĩ',N'Nhật Bản','JPY',32000,DATEADD(day,40,GETDATE()),20),(N'Singapore khám phá',N'Singapore','SGD',280,DATEADD(day,15,GETDATE()),20),(N'New York',N'Mỹ','USD',1200,DATEADD(day,60,GETDATE()),15);
+INSERT KhachHang(HoTen,SoDienThoai,Email) VALUES(N'Nguyễn Quốc Anh','0905513774','quocanh@example.com'),(N'Trần Thị Quốc Trung','0904374626','quoctrung@example.com'),(N'Lê Thu Hiền','0985513226','thuhien@example.com');
